@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+	<!-- Basic metadata -->
+	<Product Id="*"
+			 Name="HelloApp"
+			 Language="1033"
+			 Version="1.0.0.0"
+			 Manufacturer="Student"
+			 UpgradeCode="11111111-2222-3333-4444-555555555555">
+
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<!-- What to install -->
+		<Feature Id="MainFeature" Title="HelloApp" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="Shortcuts" />
+		</Feature>
+	</Product>
+
+	<!-- Where to install -->
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="HelloApp" />
+			</Directory>
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="AppProgramMenuDir" Name="HelloApp" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<!-- Files -->
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<ComponentRef Id="HelloExeComponent" />
+		</ComponentGroup>
+
+		<DirectoryRef Id="INSTALLFOLDER">
+			<!-- HelloApp.exe (built by project 'HelloApp') -->
+			<Component Id="HelloExeComponent" Guid="*">
+				<File Id="HelloExeFile"
+					  Source="$(var.HelloApp.TargetPath)"
+					  KeyPath="yes" />
+			</Component>
+		</DirectoryRef>
+	</Fragment>
+
+	<!-- Start Menu shortcut -->
+	<Fragment>
+		<ComponentGroup Id="Shortcuts" Directory="AppProgramMenuDir">
+			<Component Id="ProgramMenuShortcuts" Guid="*">
+				<Shortcut Id="HelloAppShortcut"
+						  Name="HelloApp"
+						  Target="[INSTALLFOLDER]HelloApp.exe"
+						  WorkingDirectory="INSTALLFOLDER" />
+				<RemoveFolder Id="RemoveAppProgramMenuDir" On="uninstall" />
+				<!-- Simple registry KeyPath to manage the component -->
+				<RegistryValue Root="HKCU"
+							   Key="Software\HelloApp"
+							   Name="installed"
+							   Type="integer"
+							   Value="1"
+							   KeyPath="yes"/>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+</Wix>
