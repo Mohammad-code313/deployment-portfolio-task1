@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+	<Product Id="*"
+			 Name="MathMaster"
+			 Language="1033"
+			 Version="1.0.0.0"
+			 Manufacturer="Student"
+			 UpgradeCode="b8e6a2b7-8e1b-4b89-9a53-2d9e7e0f7d10">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="MainFeature" Title="MathMaster" Level="1">
+			<ComponentGroupRef Id="ProductFiles" />
+			<ComponentGroupRef Id="Shortcuts" />
+		</Feature>
+	</Product>
+
+	<!-- Install locations -->
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="MathMaster" />
+			</Directory>
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="AppProgramMenuDir" Name="MathMaster" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<!-- Files to install -->
+	<Fragment>
+		<ComponentGroup Id="ProductFiles" Directory="INSTALLFOLDER">
+			<ComponentRef Id="ExeComponent" />
+			<ComponentRef Id="FactDllComponent" />
+			<ComponentRef Id="FiboDllComponent" />
+		</ComponentGroup>
+
+		<DirectoryRef Id="INSTALLFOLDER">
+			<!-- MathMasterApp.exe -->
+			<Component Id="ExeComponent" Guid="*">
+				<File Id="ExeFile"
+					  Source="$(var.MathMasterApp.TargetPath)"
+					  KeyPath="yes" />
+			</Component>
+
+			<!-- FactorialLib.dll -->
+			<Component Id="FactDllComponent" Guid="*">
+				<File Id="FactDllFile"
+					  Source="$(var.FactorialLib.TargetPath)"
+					  KeyPath="yes" />
+			</Component>
+
+			<!-- FiboLib.dll -->
+			<Component Id="FiboDllComponent" Guid="*">
+				<File Id="FiboDllFile"
+					  Source="$(var.FiboLib.TargetPath)"
+					  KeyPath="yes" />
+			</Component>
+		</DirectoryRef>
+	</Fragment>
+
+	<!-- Start Menu shortcut -->
+	<Fragment>
+		<ComponentGroup Id="Shortcuts" Directory="AppProgramMenuDir">
+			<Component Id="ProgramMenuShortcuts" Guid="*">
+				<Shortcut Id="MathMasterShortcut"
+						  Name="MathMaster"
+						  Target="[INSTALLFOLDER]MathMasterApp.exe"
+						  WorkingDirectory="INSTALLFOLDER" />
+				<RemoveFolder Id="RemoveAppProgramMenuDir" On="uninstall" />
+				<!-- Simple KeyPath to manage the component -->
+				<RegistryValue Root="HKCU" Key="Software\MathMaster" Name="installed"
+							   Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+</Wix>

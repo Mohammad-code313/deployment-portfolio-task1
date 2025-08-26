@@ -1,0 +1,7 @@
+D:\saf\C+D\MathSetupProject\MathSetupProject\bin\Debug\cab1.cab
+D:\saf\C+D\MathSetupProject\MathSetupProject\bin\Debug\MathSetupProject.msi
+D:\saf\C+D\MathSetupProject\MathSetupProject\bin\Debug\MathSetupProject.wixpdb
+obj\Debug\Product.wixobj
+obj\Debug\MathSetupProject.wixproj.BindContentsFileListnull.txt
+obj\Debug\MathSetupProject.wixproj.BindOutputsFileListnull.txt
+obj\Debug\MathSetupProject.wixproj.BindBuiltOutputsFileListnull.txt

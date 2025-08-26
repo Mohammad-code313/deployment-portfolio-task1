@@ -1,0 +1,3 @@
+D:\saf\C+D\MathSetupProject\Debug\MathMasterApp.exe
+D:\saf\C+D\MathSetupProject\Debug\FactorialLib.dll
+D:\saf\C+D\MathSetupProject\Debug\FiboLib.dll

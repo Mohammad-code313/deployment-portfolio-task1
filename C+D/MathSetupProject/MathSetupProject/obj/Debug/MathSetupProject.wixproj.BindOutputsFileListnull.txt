@@ -1,0 +1,3 @@
+D:\saf\C+D\MathSetupProject\MathSetupProject\bin\Debug\cab1.cab
+D:\saf\C+D\MathSetupProject\MathSetupProject\bin\Debug\MathSetupProject.msi
+D:\saf\C+D\MathSetupProject\MathSetupProject\bin\Debug\MathSetupProject.wixpdb
